@@ -1,4 +1,7 @@
 export default {
+  generate: {
+    fallback: true
+  },
   /*
    ** Headers of the page
    */
