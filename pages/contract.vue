@@ -20,7 +20,7 @@
         <h1 class="text-center">datos de acceso</h1>
         <div class="m-6 text-xs">
           {{ question }}
-          <input class="mt-4 text-center w-full pb-1" type="text" />
+          <input disabled class="mt-4 text-center w-full pb-1" type="text" />
           <div class="mt-6 w-full text-right">
             <button
               disabled
@@ -35,11 +35,11 @@
       <div class="hidden feedback text-center" />
     </section>
     <aside class="hidden">
-      <audio id="alarm">
+      <audio id="alarm" loop>
         <source src="~/assets/media/audio/alarm-effect.mp3" type="audio/mpeg" />
         <p>Tu navegador no implementa el elemento audio.</p>
       </audio>
-      <audio id="door">
+      <audio id="door" loop>
         <source src="~/assets/media/audio/door-effect.mp3" type="audio/mpeg" />
         <p>Tu navegador no implementa el elemento audio.</p>
       </audio>
@@ -59,10 +59,11 @@ export default {
   data() {
     return {
       question: '',
-      hint: 'descargando datos...'
+      hint: 'espere a la descarga de datos...'
     };
   },
   mounted() {
+    const input = this.$el.querySelector('input');
     const audio = this.$el.querySelector('audio');
     const hint = this.$el.querySelector('.hint');
     const button = this.$el.querySelector('button');
@@ -80,6 +81,7 @@ export default {
         clearInterval(interval);
         this.hint = 'datos descargados';
         hint.classList.remove('hint');
+        input.disabled = false;
         button.disabled = false;
       }
     }, 120);
@@ -98,10 +100,16 @@ export default {
 
         audio.play();
         feedback.classList.remove('feedback');
-        feedback.textContent = 'abriendo documento';
+        feedback.innerHTML = `<p>bienvenido Hugo</p><br />
+          <p>encuentra una persona de confianza para la misión</p><br/>
+          <p>victor te dará los detalles</p>`;
         setTimeout(() => {
-          window.location.href = 'https://www.youtube.com/embed/7WlphzFbwL4';
-        }, 3500);
+          feedback.classList.add('feedback');
+          feedback.textContent = 'redirigiendo al objetivo';
+          setTimeout(() => {
+            window.location.href = 'https://www.youtube.com/embed/7WlphzFbwL4';
+          }, 3000);
+        }, 6000);
       } else {
         const audio = this.$el.querySelector('#alarm');
 

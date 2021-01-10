@@ -7,9 +7,10 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: 'Bandeja de entrada',
+    title: 'Mensajería Intergaláctica',
     meta: [
       { name: 'theme-color', content: '#000913' },
+      { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
