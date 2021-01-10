@@ -3,12 +3,12 @@
     class="global bg-theme-black w-screen h-screen flex h-full items-center justify-center flex-col"
   >
     <div
-      class="hint text-center fixed top-0 mt-4 z-10 text-theme-yellow w-full"
+      class="hint text-center fixed top-0 mt-8 z-10 text-theme-yellow w-full"
       to="/contract"
     >
       <div class="px-4 m-2">{{ hint }}</div>
     </div>
-    <audio>
+    <audio loop>
       <source
         src="~/assets/media/audio/star-wars-ambiental.mp3"
         type="audio/mpeg"
@@ -17,15 +17,15 @@
     </audio>
     <section class="w-3/4 my-1/2 bg-theme-white mx-auto p-4 text-center">
       <div class="question">
-        <h1 class="text-center">acceso</h1>
+        <h1 class="text-center">datos de acceso</h1>
         <div class="m-6 text-xs">
           {{ question }}
           <input class="mt-4 text-center w-full pb-1" type="text" />
           <div class="mt-6 w-full text-right">
             <button
-              @click="submit"
               disabled
               class="px-4 py-2 border bg-theme-yellow rounded-md"
+              @click="submit"
             >
               acceder
             </button>
@@ -41,6 +41,13 @@
       </audio>
       <audio id="door">
         <source src="~/assets/media/audio/door-effect.mp3" type="audio/mpeg" />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="typing" loop>
+        <source
+          src="~/assets/media/audio/typing-sound-effect.mp3"
+          type="audio/mpeg"
+        />
         <p>Tu navegador no implementa el elemento audio.</p>
       </audio>
     </aside>
@@ -59,18 +66,23 @@ export default {
     const audio = this.$el.querySelector('audio');
     const hint = this.$el.querySelector('.hint');
     const button = this.$el.querySelector('button');
+    const typing = this.$el.querySelector('#typing');
     let text = 'en qué año se inauguró el observatorio fabra de barcelona?';
+
+    typing.play();
+
     const interval = setInterval(() => {
       this.question += text.slice(0, 1);
       text = text.slice(1);
 
       if (text === '') {
+        typing.pause();
         clearInterval(interval);
         this.hint = 'datos descargados';
         hint.classList.remove('hint');
         button.disabled = false;
       }
-    }, 350);
+    }, 120);
 
     audio.play();
   },
@@ -85,7 +97,8 @@ export default {
         const audio = this.$el.querySelector('#door');
 
         audio.play();
-        feedback.textContent = 'cargando';
+        feedback.classList.remove('feedback');
+        feedback.textContent = 'abriendo documento';
         setTimeout(() => {
           window.location.href = 'https://www.youtube.com/embed/7WlphzFbwL4';
         }, 3500);
@@ -94,7 +107,7 @@ export default {
 
         audio.play();
         feedback.classList.add('text-theme-red');
-        feedback.textContent = 'error';
+        feedback.textContent = 'datos incorrectos';
         setTimeout(() => {
           feedback.classList.add('hidden');
           feedback.classList.remove('text-theme-red');
