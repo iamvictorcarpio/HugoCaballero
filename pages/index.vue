@@ -228,7 +228,7 @@ export default {
     transform: rotateX(20deg) translateY(0) translateZ(0);
   }
 
-  95% {
+  98% {
     opacity: 1;
   }
 

@@ -70,9 +70,9 @@ export default {
     const typing = this.$el.querySelector('#typing');
     let text = 'en qué año se inauguró el observatorio fabra de barcelona?';
 
-    typing.play();
-
     setTimeout(() => {
+      typing.play();
+
       const interval = setInterval(() => {
         this.question += text.slice(0, 1);
         text = text.slice(1);
