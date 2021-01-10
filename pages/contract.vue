@@ -86,7 +86,7 @@ export default {
           button.disabled = false;
         }
       }, 120);
-    }, 1500);
+    }, 800);
 
     audio.play();
   },

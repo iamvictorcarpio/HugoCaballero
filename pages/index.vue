@@ -149,7 +149,6 @@ export default {
             }
           },
           {
-            rootMargin: '10px 0px 0px 0px',
             root: this.$el.querySelector('.star-wars')
           }
         );
