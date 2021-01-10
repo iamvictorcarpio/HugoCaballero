@@ -1,0 +1,5 @@
+@font-face {
+  font-family: "Star-wars";
+  src: local("Star-wars"),
+   url(~assets/fonts/Starjedi.ttf) format("truetype");
+}
