@@ -93,7 +93,6 @@
           quiere tomar el mando del clan, y no tenemos aún claras sus
           intenciones.
         </p>
-
         <p>
           Y por último, mejor no meterse con este, Alex ELPI34. Huído de la
           cárcel interespacial de 4 vías lácteas. Se sospecha que actualmente se
@@ -142,13 +141,17 @@ export default {
           ([entry]) => {
             if (
               entry.intersectionRatio === 0 &&
-              entry.boundingClientRect.top > entry.boundingClientRect.height
+              entry.boundingClientRect.top > 0 &&
+              entry.boundingClientRect.left > 0
             ) {
               observer.unobserve(entry.target);
               link.classList.remove('hidden');
             }
           },
-          { rootMargin: '0px 0px 50% 0px' }
+          {
+            rootMargin: '10px 0px 0px 0px',
+            root: this.$el.querySelector('.star-wars')
+          }
         );
 
         observer.observe(crawlEnding);
@@ -202,7 +205,7 @@ export default {
 }
 
 .start-crawl {
-  animation: crawl 120s linear;
+  animation: crawl 125s linear;
 }
 
 .crawl > .title {
@@ -232,7 +235,7 @@ export default {
   100% {
     top: -1000%;
     opacity: 0;
-    transform: rotateX(25deg) translateY(-1800%) translateZ(-3000px);
+    transform: rotateX(25deg) translateY(-1700%) translateZ(-3000px);
   }
 }
 
