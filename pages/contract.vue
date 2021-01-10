@@ -70,23 +70,21 @@ export default {
     const typing = this.$el.querySelector('#typing');
     let text = 'en qué año se inauguró el observatorio fabra de barcelona?';
 
-    setTimeout(() => {
-      typing.play();
+    typing.play();
 
-      const interval = setInterval(() => {
-        this.question += text.slice(0, 1);
-        text = text.slice(1);
+    const interval = setInterval(() => {
+      this.question += text.slice(0, 1);
+      text = text.slice(1);
 
-        if (text === '') {
-          typing.pause();
-          clearInterval(interval);
-          this.hint = 'datos descargados';
-          hint.classList.remove('hint');
-          input.disabled = false;
-          button.disabled = false;
-        }
-      }, 120);
-    }, 800);
+      if (text === '') {
+        typing.pause();
+        clearInterval(interval);
+        this.hint = 'datos descargados';
+        hint.classList.remove('hint');
+        input.disabled = false;
+        button.disabled = false;
+      }
+    }, 120);
 
     audio.play();
   },
