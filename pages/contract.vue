@@ -72,19 +72,21 @@ export default {
 
     typing.play();
 
-    const interval = setInterval(() => {
-      this.question += text.slice(0, 1);
-      text = text.slice(1);
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        this.question += text.slice(0, 1);
+        text = text.slice(1);
 
-      if (text === '') {
-        typing.pause();
-        clearInterval(interval);
-        this.hint = 'datos descargados';
-        hint.classList.remove('hint');
-        input.disabled = false;
-        button.disabled = false;
-      }
-    }, 120);
+        if (text === '') {
+          typing.pause();
+          clearInterval(interval);
+          this.hint = 'datos descargados';
+          hint.classList.remove('hint');
+          input.disabled = false;
+          button.disabled = false;
+        }
+      }, 120);
+    }, 1500);
 
     audio.play();
   },

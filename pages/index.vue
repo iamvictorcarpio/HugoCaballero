@@ -36,7 +36,7 @@
     </audio>
     <div class="fade"></div>
     <section class="star-wars">
-      <div class="crawl">
+      <div class="crawl text-theme-yellow">
         <div class="title">
           <p>Episodio IV</p>
           <h1>Una nueva esperanza</h1>
