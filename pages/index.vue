@@ -149,7 +149,7 @@ export default {
       audios.map(
         (audio) =>
           new Promise((resolve) => {
-            audio.addEventListener('loadeddata', resolve);
+            audio.addEventListener('canplay', resolve);
           })
       )
     ).finally(() => {
