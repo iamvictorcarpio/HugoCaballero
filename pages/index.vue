@@ -27,37 +27,6 @@
       </div>
       <div class="hidden intro text-center">Perreo<br />Wars</div>
     </aside>
-    <aside class="hidden">
-      <audio preload="auto">
-        <source
-          src="~/assets/media/audio/star-wars-intro.mp3"
-          type="audio/mpeg"
-        />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-      <audio preload="auto" loop>
-        <source
-          src="~/assets/media/audio/star-wars-ambiental.mp3"
-          type="audio/mpeg"
-        />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-      <audio id="alarm" preload="auto" loop>
-        <source src="~/assets/media/audio/alarm-effect.mp3" type="audio/mpeg" />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-      <audio id="door" preload="auto" loop>
-        <source src="~/assets/media/audio/door-effect.mp3" type="audio/mpeg" />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-      <audio id="typing" preload="auto" loop>
-        <source
-          src="~/assets/media/audio/typing-sound-effect.mp3"
-          type="audio/mpeg"
-        />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-    </aside>
     <div class="fade"></div>
     <section class="star-wars">
       <div class="crawl text-theme-yellow">
@@ -143,23 +112,30 @@ export default {
     };
   },
   mounted() {
-    const audios = [...this.$el.querySelectorAll('audio')];
+    const audios = [...document.querySelectorAll('audio')];
 
     Promise.all(
       audios.map(
         (audio) =>
           new Promise((resolve) => {
-            audio.addEventListener('canplay', resolve);
+            audio.addEventListener('canplaythrough', resolve);
           })
       )
-    ).finally(() => {
-      this.button = 'abrir';
-      this.buttonClass = '';
-    });
+    )
+      .catch(
+        () =>
+          new Promise((resolve) => {
+            setTimeout(resolve, 5000);
+          })
+      )
+      .finally(() => {
+        this.button = 'abrir';
+        this.buttonClass = '';
+      });
   },
   methods: {
     startIntro() {
-      const audio = this.$el.querySelector('audio');
+      const audio = document.querySelector('#intro');
       const alert = this.$el.querySelector('.alert');
       const intro = this.$el.querySelector('.intro');
       const blackout = this.$el.querySelector('.blackout');
@@ -175,6 +151,7 @@ export default {
       intro.classList.remove('hidden');
 
       link.addEventListener('click', () => {
+        audio.pause();
         this.$router.push('/contract');
       });
       audio.addEventListener('ended', () => {

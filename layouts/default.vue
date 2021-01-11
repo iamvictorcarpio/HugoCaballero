@@ -2,6 +2,37 @@
   <main class="overflow-hidden">
     <canvas id="starfield" class="absolute w-screen h-screen bg-theme-black" />
     <nuxt class="absolute" />
+    <aside class="hidden">
+      <audio id="intro" preload="auto">
+        <source
+          src="~/assets/media/audio/star-wars-intro.mp3"
+          type="audio/mpeg"
+        />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="ambiental" preload="auto" loop>
+        <source
+          src="~/assets/media/audio/star-wars-ambiental.mp3"
+          type="audio/mpeg"
+        />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="alarm" preload="auto" loop>
+        <source src="~/assets/media/audio/alarm-effect.mp3" type="audio/mpeg" />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="door" preload="auto" loop>
+        <source src="~/assets/media/audio/door-effect.mp3" type="audio/mpeg" />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="typing" preload="auto" loop>
+        <source
+          src="~/assets/media/audio/typing-sound-effect.mp3"
+          type="audio/mpeg"
+        />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+    </aside>
   </main>
 </template>
 

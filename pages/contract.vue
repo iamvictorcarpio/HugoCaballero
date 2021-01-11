@@ -34,23 +34,6 @@
       </div>
       <div class="hidden feedback text-center" />
     </section>
-    <aside class="hidden">
-      <audio id="alarm" preload="auto" loop>
-        <source src="~/assets/media/audio/alarm-effect.mp3" type="audio/mpeg" />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-      <audio id="door" preload="auto" loop>
-        <source src="~/assets/media/audio/door-effect.mp3" type="audio/mpeg" />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-      <audio id="typing" preload="auto" loop>
-        <source
-          src="~/assets/media/audio/typing-sound-effect.mp3"
-          type="audio/mpeg"
-        />
-        <p>Tu navegador no implementa el elemento audio.</p>
-      </audio>
-    </aside>
   </div>
 </template>
 <script>
@@ -65,13 +48,14 @@ export default {
   },
   mounted() {
     const input = this.$el.querySelector('input');
-    const audio = this.$el.querySelector('audio');
+    const audio = document.querySelector('#ambiental');
     const hint = this.$el.querySelector('.hint');
     const button = this.$el.querySelector('button');
-    const typing = this.$el.querySelector('#typing');
+    const typing = document.querySelector('#typing');
     let title = 'datos de acceso';
     let text = 'en qué año se inauguró el observatorio fabra de barcelona?';
 
+    audio.play();
     typing.play();
 
     const interval = setInterval(() => {
@@ -90,8 +74,6 @@ export default {
         }
       }
     }, 120);
-
-    audio.play();
   },
   methods: {
     submit() {
@@ -101,7 +83,7 @@ export default {
 
       question.classList.add('hidden');
       if (value === '1904') {
-        const audio = this.$el.querySelector('#door');
+        const audio = document.querySelector('#door');
 
         audio.play();
         feedback.classList.remove('feedback');
@@ -116,7 +98,7 @@ export default {
           }, 3000);
         }, 6000);
       } else {
-        const audio = this.$el.querySelector('#alarm');
+        const audio = document.querySelector('#alarm');
 
         audio.play();
         feedback.classList.add('text-theme-red');
