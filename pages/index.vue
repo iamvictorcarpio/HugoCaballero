@@ -19,6 +19,8 @@
         <div class="mt-2 text-center">
           <button
             :class="`px-3 py-2 mt-1 border border-theme-yellow rounded-lg ${buttonClass}`"
+            :disabled="disabled"
+            :style="disabled ? 'pointer-events: none' : ''"
             @click="startIntro"
           >
             {{ button }}
@@ -108,19 +110,25 @@ export default {
   data() {
     return {
       button: 'cargando',
-      buttonClass: 'flash'
+      buttonClass: 'flash',
+      disabled: true
     };
   },
   mounted() {
     const audios = [...document.querySelectorAll('audio')];
 
-    Promise.all(
-      audios.map(
-        (audio) =>
-          new Promise((resolve) => {
-            audio.addEventListener('canplaythrough', resolve);
-          })
-      )
+    Promise.race(
+      Promise.all(
+        audios.map(
+          (audio) =>
+            new Promise((resolve) => {
+              audio.addEventListener('canplaythrough', resolve);
+            })
+        )
+      ),
+      new Promise((resolve) => {
+        setTimeout(resolve, 5000);
+      })
     )
       .catch(
         () =>
@@ -131,6 +139,7 @@ export default {
       .finally(() => {
         this.button = 'abrir';
         this.buttonClass = '';
+        this.disabled = false;
       });
   },
   methods: {
