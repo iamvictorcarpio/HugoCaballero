@@ -96,10 +96,10 @@
         </p>
         <p>Para Hugo:</p>
         <p>
-          Necesitamos que te dirijas a nuestro transmisor de comunicaciones aquí
-          en la Tierra y nos comuniques todo lo que has visto y aprendido de
-          ellos en todo este tiempo. Si estás de acuerdo haz click en "Aceptar
-          Misión" seguidamente.
+          Necesitamos que te dirijas a nuestro transmisor de comunicaciones en
+          la Tierra y nos envíes un informe de todo lo que has visto y aprendido
+          de ellos durante este tiempo. En breves instantes aparecerá un botón
+          para aceptar la misión.
         </p>
       </div>
     </section>
@@ -254,7 +254,7 @@ export default {
   letter-spacing: 2px;
   line-height: 200%;
   perspective: 400px;
-  text-align: justify;
+  text-align: center;
 }
 
 .crawl {
