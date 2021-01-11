@@ -18,22 +18,46 @@
         </p>
         <div class="mt-2 text-center">
           <button
-            class="px-3 py-2 mt-1 border border-theme-yellow rounded-lg"
+            :class="`px-3 py-2 mt-1 border border-theme-yellow rounded-lg ${buttonClass}`"
             @click="startIntro"
           >
-            Abrir
+            {{ button }}
           </button>
         </div>
       </div>
       <div class="hidden intro text-center">Perreo<br />Wars</div>
     </aside>
-    <audio preload="auto">
-      <source
-        src="~/assets/media/audio/star-wars-intro.mp3"
-        type="audio/mpeg"
-      />
-      <p>Tu navegador no implementa el elemento audio.</p>
-    </audio>
+    <aside class="hidden">
+      <audio preload="auto">
+        <source
+          src="~/assets/media/audio/star-wars-intro.mp3"
+          type="audio/mpeg"
+        />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio preload="auto" loop>
+        <source
+          src="~/assets/media/audio/star-wars-ambiental.mp3"
+          type="audio/mpeg"
+        />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="alarm" preload="auto" loop>
+        <source src="~/assets/media/audio/alarm-effect.mp3" type="audio/mpeg" />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="door" preload="auto" loop>
+        <source src="~/assets/media/audio/door-effect.mp3" type="audio/mpeg" />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+      <audio id="typing" preload="auto" loop>
+        <source
+          src="~/assets/media/audio/typing-sound-effect.mp3"
+          type="audio/mpeg"
+        />
+        <p>Tu navegador no implementa el elemento audio.</p>
+      </audio>
+    </aside>
     <div class="fade"></div>
     <section class="star-wars">
       <div class="crawl text-theme-yellow">
@@ -112,8 +136,27 @@
 </template>
 <script>
 export default {
-  components: {},
-  mounted() {},
+  data() {
+    return {
+      button: 'cargando',
+      buttonClass: 'flash'
+    };
+  },
+  mounted() {
+    const audios = [...this.$el.querySelectorAll('audio')];
+
+    Promise.all(
+      audios.map(
+        (audio) =>
+          new Promise((resolve) => {
+            audio.addEventListener('loadeddata', resolve);
+          })
+      )
+    ).finally(() => {
+      this.button = 'abrir';
+      this.buttonClass = '';
+    });
+  },
   methods: {
     startIntro() {
       const audio = this.$el.querySelector('audio');
@@ -254,6 +297,10 @@ export default {
   margin: 10% 0;
 }
 
+.flash {
+  animation: flash ease-in-out 1.4s infinite;
+}
+
 @keyframes crawl {
   0% {
     top: 0;
@@ -278,6 +325,18 @@ export default {
   100% {
     opacity: 0;
     transform: scale(1);
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>
