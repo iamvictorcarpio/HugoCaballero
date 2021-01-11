@@ -123,7 +123,10 @@ export default {
       const crawl = this.$el.querySelector('.crawl');
       const link = this.$el.querySelector('.link');
 
-      window.document.documentElement.requestFullscreen();
+      if (window.document.documentElement.requestFullscreen) {
+        window.document.documentElement.requestFullscreen();
+      }
+
       alert.classList.add('hidden');
       audio.play();
       intro.classList.remove('hidden');
