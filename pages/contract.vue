@@ -8,7 +8,7 @@
     >
       <div class="px-4 m-2">{{ hint }}</div>
     </div>
-    <audio loop>
+    <audio preload="auto" loop>
       <source
         src="~/assets/media/audio/star-wars-ambiental.mp3"
         type="audio/mpeg"
@@ -17,7 +17,7 @@
     </audio>
     <section class="w-3/4 my-1/2 bg-theme-white mx-auto p-4 text-center">
       <div class="question">
-        <h1 class="text-center">datos de acceso</h1>
+        <h1 class="text-center">{{ title }}</h1>
         <div class="m-6 text-xs">
           {{ question }}
           <input disabled class="mt-4 text-center w-full pb-1" type="text" />
@@ -35,15 +35,15 @@
       <div class="hidden feedback text-center" />
     </section>
     <aside class="hidden">
-      <audio id="alarm" loop>
+      <audio id="alarm" preload="auto" loop>
         <source src="~/assets/media/audio/alarm-effect.mp3" type="audio/mpeg" />
         <p>Tu navegador no implementa el elemento audio.</p>
       </audio>
-      <audio id="door" loop>
+      <audio id="door" preload="auto" loop>
         <source src="~/assets/media/audio/door-effect.mp3" type="audio/mpeg" />
         <p>Tu navegador no implementa el elemento audio.</p>
       </audio>
-      <audio id="typing" loop>
+      <audio id="typing" preload="auto" loop>
         <source
           src="~/assets/media/audio/typing-sound-effect.mp3"
           type="audio/mpeg"
@@ -58,6 +58,7 @@ export default {
   components: {},
   data() {
     return {
+      title: '',
       question: '',
       hint: 'espere a la descarga de datos...'
     };
@@ -68,21 +69,25 @@ export default {
     const hint = this.$el.querySelector('.hint');
     const button = this.$el.querySelector('button');
     const typing = this.$el.querySelector('#typing');
+    let title = 'datos de acceso';
     let text = 'en qué año se inauguró el observatorio fabra de barcelona?';
 
     typing.play();
 
     const interval = setInterval(() => {
-      this.question += text.slice(0, 1);
-      text = text.slice(1);
-
-      if (text === '') {
-        typing.pause();
-        clearInterval(interval);
-        this.hint = 'datos descargados';
-        hint.classList.remove('hint');
-        input.disabled = false;
-        button.disabled = false;
+      this.title += title.slice(0, 1);
+      title = title.slice(1);
+      if (title === '') {
+        this.question += text.slice(0, 1);
+        text = text.slice(1);
+        if (text === '') {
+          typing.pause();
+          clearInterval(interval);
+          this.hint = 'datos descargados';
+          hint.classList.remove('hint');
+          input.disabled = false;
+          button.disabled = false;
+        }
       }
     }, 120);
 

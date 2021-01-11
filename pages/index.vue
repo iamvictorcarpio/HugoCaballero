@@ -27,7 +27,7 @@
       </div>
       <div class="hidden intro text-center">Perreo<br />Wars</div>
     </aside>
-    <audio>
+    <audio preload="auto">
       <source
         src="~/assets/media/audio/star-wars-intro.mp3"
         type="audio/mpeg"
@@ -152,13 +152,42 @@ export default {
             }
           },
           {
-            rootMargin: '10px 0px 0px 0px',
             root: this.$el.querySelector('.star-wars')
           }
         );
 
         observer.observe(crawlEnding);
         crawl.classList.add('start-crawl');
+      });
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (
+            entry.intersectionRatio === 0 &&
+            entry.boundingClientRect.top > 0 &&
+            entry.boundingClientRect.left > 0
+          ) {
+            observer.unobserve(entry.target);
+            link.classList.remove('hidden');
+          }
+        },
+        {
+          root: this.$el.querySelector('.star-wars')
+        }
+      );
+
+      const crawlEnding = this.$el.querySelector('.crawl > p:last-of-type');
+
+      observer.observe(crawlEnding);
+
+      intro.addEventListener('animationend', () => {
+        blackout.classList.add('hidden');
+        crawl.classList.add('start-crawl');
+      });
+
+      crawl.addEventListener('animationend', () => {
+        observer.unobserve(crawlEnding);
+        link.classList.remove('hidden');
       });
     }
   }
@@ -208,7 +237,7 @@ export default {
 }
 
 .start-crawl {
-  animation: crawl 125s linear;
+  animation: crawl 120s linear;
 }
 
 .crawl > .title {
